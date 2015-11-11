@@ -26,6 +26,11 @@ RSpec.describe QuestionsController, type: :controller do
       post :create, question: attributes_for(:question)
       expect(Question.all.count).to eq 1
     end
+
+    it "does not save an invalid question to database" do
+      post :create, question: attributes_for(:question, title: nil)
+      expect(Question.all.count).to eq 0
+    end
   end
 
 end
